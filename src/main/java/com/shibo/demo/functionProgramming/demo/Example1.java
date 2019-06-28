@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class example1 {
+public class Example1 {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

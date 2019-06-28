@@ -1,0 +1,17 @@
+package com.shibo.demo.controller.validation;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class NestingObject2 {
+    @NotBlank(message = "不能为空")
+    private String name2;
+}

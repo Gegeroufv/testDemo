@@ -23,12 +23,12 @@ public class TestInjectService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        dispatcherServlet.getHandlerMappings().stream().forEach(e -> {
-            try {
-                e.getHandler(request);
-            }catch (Exception f){
-                f.printStackTrace();
-            }
-        });
+//        dispatcherServlet.getHandlerMappings().stream().forEach(e -> {
+//            try {
+//                e.getHandler(request);
+//            }catch (Exception f){
+//                f.printStackTrace();
+//            }
+//        });
     }
 }
