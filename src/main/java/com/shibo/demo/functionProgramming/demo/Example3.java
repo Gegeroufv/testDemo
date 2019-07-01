@@ -3,15 +3,14 @@ package com.shibo.demo.functionProgramming.demo;
 import com.google.common.base.Function;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.partitioningBy;
 
 public class Example3 {
     @Data
@@ -91,7 +90,7 @@ public class Example3 {
         System.out.println(testValue.name + " " + testValue.value);
 
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        //生成对象
+        //生成对象,工厂方法
         Supplier<Hello> randomHello = Hello::new;
         Stream.generate(randomHello).limit(10).forEach(e -> System.out.println(e));
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&");
@@ -101,11 +100,43 @@ public class Example3 {
         System.out.println(flag.test(2) + "  " + flag.negate());
 
         //普通使用
-        Consumer<Integer> consumer = x -> System.out.println("accept1: " + x);
+        Consumer<Integer> consumer = x -> {
+            x = x + 1;
+            System.out.println("accept1: " + x);
+        };
         consumer.accept(1);
-        Consumer<Integer> consumer2 = x -> System.out.println("accept2: " + x);
+        Consumer<Integer> consumer2 = x -> {
+            x = x + 2;
+            System.out.println("accept2: " + x);
+        };
         consumer.andThen(consumer2).accept(2);
 
+        BinaryOperator<Long> sub = (a, b) -> a - b;
+        System.out.println(sub.apply(1L, 2L));
 
-    }
+        //函数计算
+        Function<Person, String> getName = Person::getName;
+        System.out.println(getName.apply(list.get(0)));
+        //返回同类型对象
+        UnaryOperator<Person> b = e -> {
+            return list.get(1);
+        };
+        System.out.println(b.apply(list.get(2)));
+        Map<Boolean, List<Person>> collect = list.stream().collect(partitioningBy(e -> {
+            return e.getAge() > 30;
+        }));
+        collect.forEach((key,value)->{
+            System.out.println(key+"   "+value);
+        });
+        String collectNames = list.stream().map(e -> e.getName()).collect(Collectors.joining(",", "[", "]"));
+        System.out.println(collectNames);
+        //下游收集器
+        Map<String, List<Integer>> collect1 = list.stream().collect(Collectors.groupingBy(Person::getName, Collectors.mapping(Person::getAge, Collectors.toList())));
+        collect1.forEach((key,value)->{
+            System.out.println(key+"  "+value);
+        });
+        //https://www.cnblogs.com/yw0219/p/9589124.html自定义收集器
+        //可以直接使用collect.of来实现收集器
+        System.out.println(Objects.isNull(null));
+        }
 }

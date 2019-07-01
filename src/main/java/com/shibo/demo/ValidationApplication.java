@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 
-@ServletComponentScan(basePackages = "com.shibo.demo.controller.filters")
+@ServletComponentScan(basePackages = {"com.shibo.demo.controller.filters","com.shibo.demo.controller.listener"})
 @EnableCaching
 @EnableRedisRepositories
 @EnableJpaAuditing

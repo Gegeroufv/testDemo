@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Tuple;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -26,10 +28,13 @@ public class testVo {
     }
 
     @GetMapping("/get")
-    public void get(){
+    public void get(HttpServletRequest request){
         List<Tuple> theEmploy = this.empReposiroty.findTheEmploy();
         theEmploy.stream().forEach(e->{
             System.out.println(e);
         });
+        //session的创建
+        HttpSession session = request.getSession();
+        System.out.println(session.getCreationTime());
     }
 }
