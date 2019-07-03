@@ -5,12 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.stream.IntStream;
 
-public class Example2 {
+public class Example4 {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -60,19 +59,23 @@ public class Example2 {
     }};
 
     public static void main(String[] args) {
-        list.stream().flatMap(e -> e.getProperties().stream()).collect(Collectors.groupingBy(e -> e, Collectors.counting()))
-                .forEach((key, value) -> System.out.println(key + " " + value));
-        Optional<Person> any = list.stream().findAny();
-        System.out.println(any.get());
-        //流转换为迭代器
-        Iterator<Person> iterator = list.stream().iterator();
-        iterator.forEachRemaining(e->{
-            System.out.println(e);
+        System.out.println(list);
+        for(int i=0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
+        //带参数的遍历
+        IntStream.range(0,list.size()).forEach(e-> System.out.println(list.get(e)));
+        System.out.println();
+        //peek没有返回值，是对元素的操作,是一个中间操作！
+        list.stream().peek(e->{
+            if (e.age==12){
+                System.err.println(e);
+            }
+        }).forEach(e->{
+            if(e.age!=12){
+                System.out.println(e);
+            }
         });
-        //对并行的流进行顺序处理
-        list.parallelStream().forEachOrdered(e-> System.out.println(e));
-        list.stream().forEach(e-> System.out.println(e));
-        String collect = list.stream().map(e -> e.name).collect(Collectors.joining(",", "(", ")"));
-        System.out.println(collect);
+
     }
 }

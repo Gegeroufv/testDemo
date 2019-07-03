@@ -10,5 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClazzService {
+    public static void main(String[] args) {
 
+    }
 }

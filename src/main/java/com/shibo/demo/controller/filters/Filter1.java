@@ -1,11 +1,11 @@
 package com.shibo.demo.controller.filters;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.shibo.demo.controller.exception.*;
 import org.springframework.core.annotation.Order;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 
@@ -22,7 +22,12 @@ public class Filter1 implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException{
-
+        if (servletRequest instanceof HttpServletRequest) {
+            ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper((HttpServletRequest) servletRequest);
+            filterChain.doFilter(requestWrapper, servletResponse);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 
     @Override

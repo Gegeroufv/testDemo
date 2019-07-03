@@ -68,3 +68,5 @@ public class Test {
 //https://blog.csdn.net/ditto_zhou/article/details/80830970 映射结果集
 
 //https://blog.csdn.net/isyoungboy/article/details/87878685 jpa结果转换
+
+//https://blog.csdn.net/liuyunyihao/article/details/81986172 jpa中使用函数

@@ -1,16 +1,17 @@
-package com.shibo.demo.functionProgramming.demo;
+package com.shibo.demo.guavaTest.optional;
 
+import com.google.common.base.Optional;
+import com.shibo.demo.functionProgramming.demo.Example2;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
 
-public class Example2 {
+public class OptionTest {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -60,19 +61,9 @@ public class Example2 {
     }};
 
     public static void main(String[] args) {
-        list.stream().flatMap(e -> e.getProperties().stream()).collect(Collectors.groupingBy(e -> e, Collectors.counting()))
-                .forEach((key, value) -> System.out.println(key + " " + value));
-        Optional<Person> any = list.stream().findAny();
-        System.out.println(any.get());
-        //流转换为迭代器
-        Iterator<Person> iterator = list.stream().iterator();
-        iterator.forEachRemaining(e->{
-            System.out.println(e);
-        });
-        //对并行的流进行顺序处理
-        list.parallelStream().forEachOrdered(e-> System.out.println(e));
-        list.stream().forEach(e-> System.out.println(e));
-        String collect = list.stream().map(e -> e.name).collect(Collectors.joining(",", "(", ")"));
-        System.out.println(collect);
+        Optional<Person> op=null;
+//        System.out.println(op.);
+        op=Optional.of(list.get(0));
+        System.out.println();
     }
 }

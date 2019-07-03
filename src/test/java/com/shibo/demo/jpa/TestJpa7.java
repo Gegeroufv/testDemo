@@ -33,5 +33,6 @@ public class TestJpa7 {
                 System.out.println(value.get(i).get("id") + " " + value.get(i).get("name") + "  " + value.get(i).get("age") + "  " + value.get(i).get("dept_name"));
             }
         });
+        System.out.println("()".length());
     }
 }
