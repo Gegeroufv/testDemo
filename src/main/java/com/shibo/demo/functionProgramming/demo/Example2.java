@@ -74,5 +74,10 @@ public class Example2 {
         list.stream().forEach(e-> System.out.println(e));
         String collect = list.stream().map(e -> e.name).collect(Collectors.joining(",", "(", ")"));
         System.out.println(collect);
+
+        list.forEach((ve)->{
+            System.err.println(ve);
+        });
+
     }
 }
